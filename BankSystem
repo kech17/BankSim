@@ -1,6 +1,8 @@
 import java.util.*;
 
-
+/**
+ * Summary description for Class1.
+ */
 public class BankSystem
 {
 	private List<BankAccount> accounts;
@@ -26,6 +28,17 @@ public class BankSystem
 	public int getNumAccount() { return numAcc; }
 	public List<BankAccount> getAccounts() { return accounts; }
 
+	public int allAssets()
+	{
+		int sum=0;
+		for (Iterator<BankAccount> i = accounts.iterator(); i.hasNext(); )
+		{
+			BankAccount item = i.next();
+			sum += item.getTotal();
+		}
+		return sum;
+	}
+
 	public void addAccount(BankAccount ba)
 	{
 		accounts.add(ba);
@@ -33,17 +46,17 @@ public class BankSystem
 		numAcc++;
 	}
 
-	public BankAccount findAccount(String username)
+	public BankAccount findAccount(int num)
 	{
 		for (Iterator<BankAccount> i = accounts.iterator(); i.hasNext(); )
 		{
 			BankAccount item = i.next();
-			if (item.getName() == username)
+			if (i == num-1)
 			{
-				return true;
+				return item;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean deleteAccount(int num)
@@ -68,15 +81,11 @@ public class BankSystem
 		}
 	}
 
-	public boolean transferAssets(int sum, String user1, String user2)
+	public boolean transferAssets(int sum, int acc1, int acc2)
 	{
-		if (sum < 0)
-		{
-			System.out.println("Invalid Input");
-			return false;
-		}
-		BankAccount sender = findAccount(user1);
-		BankAccount receiver = findAccount(user2);
+		
+		BankAccount sender = findAccount(acc1);
+		BankAccount receiver = findAccount(acc2);
 		if ( sender!=null && receiver!=null)
 		{
 			aftersum = afterCommision(sum);
@@ -104,10 +113,14 @@ public class BankSystem
 		int com = a.getCommission();
 		return sum -= sum * com;
 	}
-
+	public void printSystem()
+	{
+		System.out.println(String.Format("%s %10s %10s", "Owner", "Number of Acc", "Total Assets"));
+		System.out.println(String.Format("%s %10s %10s", name, numAcc, allAssets()));
+	}
 	public void toString()
 	{
-		String header = String.Format("%s %10s %10s %20s", "Username", "Total", "Max Limit", "Withdraw Limit");
+		String header = String.Format("%s %10s %10s %20s", "Account Type", "Total", "Max Limit", "Withdraw Limit");
 		System.out.println(header);
 
 		for (Iterator<BankAccount> i = accounts.iterator(); i.hasNext(); )
