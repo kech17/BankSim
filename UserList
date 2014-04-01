@@ -1,7 +1,8 @@
 import java.util.*;
 import java.util.List;
-
-
+/**
+ * Summary description for Class1.
+ */
 public class UserList
 {
 	List<User> list;
@@ -23,27 +24,17 @@ public class UserList
 		return null;
 
 	}
-	public boolean addUser(User user)
+	public void addUser(User user)
 	{
-		if (findUser(user.getName()) != null)
-		{
-			System.out.println("Username already exists");
-			return false;
-		}
 		list.add(user);
 		System.out.println("User successfully added");
-		return true;
 	}
 
-	public boolean deleteUser(String user)
+	public void deleteUser(String user)
 	{
-		if (findUser(user) != null)
-		{
-			list.remove(findUser(user));
-			return true;
-		}
-		System.out.println("This username does not exist");
-		return false;
+
+		list.remove(findUser(user));
+		System.out.println("User successfully deleted");
 	}
 
 	public void ToStringAll()
