@@ -1,29 +1,186 @@
 import java.util.*;
 import java.util.Scanner;
-
-
+/**
+ * Summary description for Class1.
+ */
 public class Main
 {
+	public Scanner scan = new Scanner(System.in);
+	public UserList list = new UserList();
+	public int input;
+
+	public int max = 500;
+	public int withdraw = 500;
+
 	public static void main(String args[])
 	{
-		Scanner scan = new Scanner(System.in);
-		int input;
-		boolean first = true, second = false, third = false;
-
+		String name;
 		System.out.println("Bank System Simulator");
-		while (first)
+
+		while (true)
 		{
-			System.out.println("1: Create Account\n2: Delete Account\n3: Login");
+			System.out.println("1: Create Account");
+			System.out.println("2: Delete Account");
+			System.out.println("3: Log In");
 			input = scan.nextInt();
+
+			if (input == 1)
+			{
+				System.out.println("Name of Owner: ");
+				name = scan.nextLine();
+				if (list.findUser(name) == null)
+				{
+					User user = new User(name);
+					list.addUser(user);
+				}
+				else
+				{
+					System.out.println("Username already taken");
+				}
+			}
+			else if (input == 2)
+			{
+				System.out.println("Name of Owner: ");
+				name = scan.nextLine();
+				if (list.findUser(name) != null)
+				{
+					list.deleteUser(name);
+				}
+				else
+				{
+					System.out.println("Username does not exist");
+				}
+			}
+			else if (input == 3)
+			{
+				System.out.println("Login Name: ");
+				name = scan.nextLine();
+				if (list.findUser(name) != null)
+				{
+					logIn(list.findUser(name));
+				}
+				else
+				{
+					System.out.println("Invalid LogIn");
+				}
+			}
+		}
+	}
+	public void logIn(User user)
+	{
+		System.out.println("1: View Summary");
+		System.out.println("2: Bank Accounts");
+		System.out.println("3: Log Out");
+		input = scan.nextInt();
+
+		while (true)
+		{
 			switch (input)
 			{
 				case 1:
-					String user;
-					System.out.println("Username: ");
-					user = scan.next();
-
+					user.getBank().printSystem();
+					break;
 				case 2:
+					bankMenu(user.getBank());
+					break;
+				case 3:
+					return;
+					break;
+			}
+		}
+	}
 
+	public void bankMenu(BankSystem sys)
+	{
+		System.out.println("1: View Bank Accounts");
+		System.out.println("2: Go to Account");
+		System.out.println("3: Transfer Assets");
+		System.out.println("4: Add Bank Account");
+		System.out.println("5: Delete Bank Account");
+		System.out.println("6: Log Out");
+		input = scan.nextInt();
+
+		while (true)
+		{
+			switch (input)
+			{
+				case 1:
+					sys.toString();
+					break;
+				case 2:
+					System.out.println("Which Bank Account Number: ");
+					input = scan.nextLine();
+					if (input>=0 && input<sys.getNumAccount())
+					{
+						accountMenu(sys.getAccounts().get(input-1);
+					}
+					else
+					{
+						System.out.println("Bank Account does not exist");
+					}
+					break;
+				case 3:
+					int sender, receiver, sum;
+					while(true)
+					{
+						System.out.println("Sender Account: ");
+						sender = scan.nextInt();
+
+						if (sys.findAccount(sender)==null)
+						{
+							System.out.println("Sender does not exist");
+							break;
+						}
+						else if(sys.findAccount(sender).getTotal+sum > sys.findAccount(sender).getWithdraw())
+						{
+							System.out.println("Bank account has a $"+sys.findAccount(sender).getWithdraw()+" withdraw limit");
+							break;
+						}
+
+						System.out.println("Transfer Amount: ");
+						sum = scan.nextInt();
+
+						if (sys.findAccount(sender).getTotal() < sum)
+						{
+							System.out.println("Account only has $"+sys.findAccount(sender).getTotal());
+							break;
+						}
+
+						System.out.println("Receiver Account: ");
+						receiver = scan.nextInt();
+						if (sys.findAccount(receiver)==null)
+						{
+							System.out.println("Receiver does not exist");
+							break;
+						}
+						
+						sys.transferAssets(sum,sender,receiver);
+					}
+					break;
+				case 4:
+					System.out.println("Type of Account: (1) Low Rate   (2) High Rate");
+					input = scan.nextLine();
+					if (input == 1)
+					{
+						BankAccount ba = new BankAccount("Low Rate", max, withdraw, 0); 
+						System.out.println("Account successfully made");
+					}
+					else if (input == 2)
+					{
+						BankAccount ba = new BankAccount("High Rate", max, withdraw, 0); 
+						System.out.println("Account successfully made");
+					}
+					else
+					{
+						System.out.println("Invliad input");
+					}
+					break;
+				case 5:
+					//asdasd
+					break;
+				case 6:
+					//
+					break;
 			}
 		}
 	}
