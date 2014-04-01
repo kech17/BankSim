@@ -1,0 +1,19 @@
+import java.util.*;
+
+
+public class User
+{
+	private BankSystem sys;
+	private String name;
+	private int defaultSize = 2;
+
+	public User(String name)
+	{
+		this.name = name;
+		sys = new BankSystem(defaultSize, name);
+	}
+
+	public String getName() { return name; }
+	public int getNumOfAccounts() { return defaultSize; }
+	public BankSystem getBank() { return sys; }
+}
