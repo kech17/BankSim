@@ -1,0 +1,66 @@
+import java.util.*;
+import java.util.List;
+
+
+public class UserList
+{
+	List<User> list;
+	public UserList()
+	{
+		list = new ArrayList();
+	}
+
+	public User findUser(String user)
+	{
+		for (Iterator<User> i = list.iterator(); i.hasNext(); )
+		{
+			User element = i.next();
+			if (element.getName().equals(user))
+			{
+				return element;
+			}
+		}
+		return null;
+
+	}
+	public boolean addUser(User user)
+	{
+		if (findUser(user.getName()) != null)
+		{
+			System.out.println("Username already exists");
+			return false;
+		}
+		list.add(user);
+		System.out.println("User successfully added");
+		return true;
+	}
+
+	public boolean deleteUser(String user)
+	{
+		if (findUser(user) != null)
+		{
+			list.remove(findUser(user));
+			return true;
+		}
+		System.out.println("This username does not exist");
+		return false;
+	}
+
+	public void ToStringAll()
+	{
+		for (Iterator<User> i = list.iterator(); i.hasNext(); )
+		{
+			User element = i.next();
+			System.out.println("Username: " + element.getName());
+			System.out.println("Number of Accounts: " + element.getNumOfAccounts());
+			System.out.println(element.getBank().toString());
+			System.out.println();
+		}
+	}
+
+	public void toStringOne(int num)
+	{
+		System.out.println(list.get(num - 1).getBank().toString());
+	}
+
+}
