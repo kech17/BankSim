@@ -1,0 +1,30 @@
+import java.util.*;
+import java.util.Scanner;
+
+
+public class Main
+{
+	public static void main(String args[])
+	{
+		Scanner scan = new Scanner(System.in);
+		int input;
+		boolean first = true, second = false, third = false;
+
+		System.out.println("Bank System Simulator");
+		while (first)
+		{
+			System.out.println("1: Create Account\n2: Delete Account\n3: Login");
+			input = scan.nextInt();
+			switch (input)
+			{
+				case 1:
+					String user;
+					System.out.println("Username: ");
+					user = scan.next();
+
+				case 2:
+
+			}
+		}
+	}
+}
