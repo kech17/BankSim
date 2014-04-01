@@ -1,0 +1,119 @@
+import java.util.*;
+
+
+public class BankSystem
+{
+	private List<BankAccount> accounts;
+	private int numAcc;
+	private String name;
+
+	public BankSystem(int size, String name)
+	{
+		if (size > 0)
+		{
+			this.size = size;
+			accounts = new ArrayList(size);
+			numAcc = 0;
+			this.name = name;
+		}
+		else
+		{
+			System.out.println("Invalid input");
+		}
+	}
+
+	public int getSize() { return size; }
+	public int getNumAccount() { return numAcc; }
+	public List<BankAccount> getAccounts() { return accounts; }
+
+	public void addAccount(BankAccount ba)
+	{
+		accounts.add(ba);
+		System.out.println("Account successfully added");
+		numAcc++;
+	}
+
+	public BankAccount findAccount(String username)
+	{
+		for (Iterator<BankAccount> i = accounts.iterator(); i.hasNext(); )
+		{
+			BankAccount item = i.next();
+			if (item.getName() == username)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean deleteAccount(int num)
+	{
+		int index = num - 1;
+		if (accounts.get(num).hasAssets())
+		{
+			System.out.println("You still have assets in this account");
+			return false;
+		}
+		else if (numAcc == 0)
+		{
+			System.out.println("There are no accounts to delete");
+			return false;
+		}
+		else
+		{
+			accoutns.remove(num);
+			System.out.println("Account has been removed");
+			numAcc--;
+			return true;
+		}
+	}
+
+	public boolean transferAssets(int sum, String user1, String user2)
+	{
+		if (sum < 0)
+		{
+			System.out.println("Invalid Input");
+			return false;
+		}
+		BankAccount sender = findAccount(user1);
+		BankAccount receiver = findAccount(user2);
+		if ( sender!=null && receiver!=null)
+		{
+			aftersum = afterCommision(sum);
+			if (sum > sender.getTotal())
+			{
+				System.out.println("You only have $" + sender.getTotal() + " in the account");
+				return false;
+			}
+			else if (aftersum + receiver.getTotal() > receiver.getMax())
+			{
+				System.out.println(user2 + " account can only hold " + receiver.getMax());
+				return false;
+			}
+			else
+			{
+				sender.Withdraw(sum);
+				receiver.Deposit(aftersum);
+				System.out.println("Transfer of " + aftersum + "("+sum+") from " + user1 + " to " + user2 + " complete");
+				return true;
+			}
+		}
+	}
+	public double afterCommission(double sum, BankAccount a)
+	{
+		int com = a.getCommission();
+		return sum -= sum * com;
+	}
+
+	public void toString()
+	{
+		String header = String.Format("%s %10s %10s %20s", "Username", "Total", "Max Limit", "Withdraw Limit");
+		System.out.println(header);
+
+		for (Iterator<BankAccount> i = accounts.iterator(); i.hasNext(); )
+		{
+			BankAccount item = i.next();
+			System.out.println(item.toString());
+		}
+	}
+}
