@@ -31,7 +31,7 @@ public class BankAccount
 	public int getMax() { return max; }
 	public double getTotal() { return total; }
 	public int getWithdraw() { return withdraw; }
-	public int getCommission() { return commission; }
+	public double getCommission() { return commission; }
 
 	public boolean Deposit(double deposit)
 	{
@@ -75,7 +75,7 @@ public class BankAccount
 
 	public String toString()
 	{
-		String data = String.Format("%s %10s %10s %20s", accType, total, max, withdraw);
+		String data = String.format("%s %10s %10s %20s", accType, total, max, withdraw);
 
 		return (data);
 	}
