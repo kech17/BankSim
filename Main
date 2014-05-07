@@ -5,12 +5,12 @@ import java.util.Scanner;
  */
 public class Main
 {
-	public Scanner scan = new Scanner(System.in);
-	public UserList list = new UserList();
-	public int input;
+	public static Scanner scan = new Scanner(System.in);
+	public static UserList list = new UserList();
+	public static int input;
 
-	public int max = 500;
-	public int withdraw = 500;
+	public static int max = 500;
+	public static int withdraw = 500;
 
 	public static void main(String args[])
 	{
@@ -66,7 +66,7 @@ public class Main
 			}
 		}
 	}
-	public void logIn(User user)
+	public static void logIn(User user)
 	{
 		System.out.println("1: View Summary");
 		System.out.println("2: Bank Accounts");
@@ -85,12 +85,11 @@ public class Main
 					break;
 				case 3:
 					return;
-					break;
 			}
 		}
 	}
 
-	public void bankMenu(BankSystem sys)
+	public static void bankMenu(BankSystem sys)
 	{
 		System.out.println("1: View Bank Accounts");
 		System.out.println("2: Go to Account");
@@ -109,10 +108,10 @@ public class Main
 					break;
 				case 2:
 					System.out.println("Which Bank Account Number: ");
-					input = scan.nextLine();
+					input = Integer.parseInt(scan.nextLine());
 					if (input>=0 && input<sys.getNumAccount())
 					{
-						accountMenu(sys.getAccounts().get(input-1);
+						//accountMenu(sys.getAccounts().get(input-1));
 					}
 					else
 					{
@@ -123,6 +122,8 @@ public class Main
 					int sender, receiver, sum;
 					while(true)
 					{
+						System.out.println("Trasnfer Amount: ");
+						sum = scan.nextInt();
 						System.out.println("Sender Account: ");
 						sender = scan.nextInt();
 
@@ -131,7 +132,7 @@ public class Main
 							System.out.println("Sender does not exist");
 							break;
 						}
-						else if(sys.findAccount(sender).getTotal+sum > sys.findAccount(sender).getWithdraw())
+						else if(sys.findAccount(sender).getTotal()+sum > sys.findAccount(sender).getWithdraw())
 						{
 							System.out.println("Bank account has a $"+sys.findAccount(sender).getWithdraw()+" withdraw limit");
 							break;
@@ -159,7 +160,7 @@ public class Main
 					break;
 				case 4:
 					System.out.println("Type of Account: (1) Low Rate   (2) High Rate");
-					input = scan.nextLine();
+					input = Integer.parseInt(scan.nextLine());
 					if (input == 1)
 					{
 						BankAccount ba = new BankAccount("Low Rate", max, withdraw, 0); 
