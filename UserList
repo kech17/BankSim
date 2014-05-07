@@ -44,14 +44,14 @@ public class UserList
 			User element = i.next();
 			System.out.println("Username: " + element.getName());
 			System.out.println("Number of Accounts: " + element.getNumOfAccounts());
-			System.out.println(element.getBank().toString());
+			element.getBank().toString();
 			System.out.println();
 		}
 	}
 
 	public void toStringOne(int num)
 	{
-		System.out.println(list.get(num - 1).getBank().toString());
+		list.get(num - 1).getBank().toString();
 	}
 
 }
